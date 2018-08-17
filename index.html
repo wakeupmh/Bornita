@@ -1,0 +1,448 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/bulma.css"/>
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
+		<style type="text/css">
+			.center{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+			}
+			.h-pai > .bg-video {
+			    position: absolute;
+			    top: 0;
+			    left: 0;
+			    z-index: -1; /*apenas um -1 é necessário quando se trabalha com relative + absolute, sendo pai e filho*/
+			    width: 100%;
+			    height: 100%;
+			    overflow: hidden; /* evita do video passar a altura desejada do .wrap */
+			}
+			.wrap > .bg-video > video {
+			    width: 100%;
+			}
+			.h-pai{
+				position: relative;
+			}
+			#h-c-img{
+			   max-width: 180px;
+			}
+			#section-resize, #section-rotate, #section-format, #section-fx, #section-alpha{
+				display: none;
+			}
+			@media (min-width:280px) and (max-height: 400px){
+				#h-c-img{
+				    max-width: 120px !important;
+				}
+			}
+		</style>
+		<script type="text/javascript">
+			if (typeof module === 'object') {window.module = module; module = undefined;}
+		</script>
+		<script type="text/javascript" src="js/nucleo.jquery-2.1.1.js"></script>
+	</head>
+	<body>
+		<section class="hero is-medium h-pai">
+			<video autoplay loop src="img/bg-video/fog.mp4" class="hero is-medium has-background-white"></video style="width: 100%">	
+			<div class="hero-body" style="margin-top: -62%;">
+				<div class="container">
+					<figure class="image center">
+						<img src="img/logo.png" id="h-c-img">
+					</figure>
+				</div>
+			</div>
+		</section>
+		<section class="section sect-none" id="section-resize">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<div class="notification">
+							<figure class="image center">
+								<img src="img/resize.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Resize your image </h3><br>
+							<div class="file has-name is-boxed center">
+							  <label class="file-label">
+							    <input class="file-input" type="file" name="resume" id="s-r-file">
+							    <span class="file-cta" style="background-color:#b794f6;color:white;">
+							      <span class="file-icon">
+							        <i class="fa fa-upload"></i>
+							      </span>
+							      <span class="file-label" id="s-r-file-label">
+							        Choose your image
+							      </span>
+							    </span>
+							    <span class="file-name" style="background-color:white;color: grey;">
+							      selecione_seu_arquivo...png
+							    </span>
+							  </label>
+							</div><br>
+							<div class="field is-horizontal center">
+							  <div class="field-label is-normal">
+							    <label class="label">Width:</label>
+							  </div>
+							  <div class="field-body">
+							    <div class="field">
+							      <p class="control">
+							        <input class="input" type="number" placeholder="9999px" id="s-r-width">
+							      </p>
+							    </div>
+							  </div>
+							</div>
+							<div class="field is-horizontal center">
+							  <div class="field-label is-normal">
+							    <label class="label">Height:</label>
+							  </div>
+							  <div class="field-body">
+							    <div class="field">
+							      <p class="control">
+							        <input class="input" type="number" placeholder="9999px" id="s-r-height">
+							      </p>
+							    </div>
+							  </div>
+							</div><br>
+							<div class="field is-grouped is-grouped-centered center">
+							  <p class="control" id="s-r-send">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      Send
+							    </a>
+							  </p>
+							  <p class="control" id="s-r-cancel">
+							    <a class="button" style="background-color:#dcc9ff;">
+							      Cancel
+							    </a>
+							  </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="section-rotate">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<div class="notification">
+							<figure class="image center">
+								<img src="img/rotate.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Rotate your image </h3><br>
+							<div class="file has-name is-boxed center">
+							  <label class="file-label">
+							    <input class="file-input" type="file" name="resume" id="s-ro-file">
+							    <span class="file-cta" style="background-color:#b794f6;color:white;">
+							      <span class="file-icon">
+							        <i class="fa fa-upload"></i>
+							      </span>
+							      <span class="file-label" id="s-ro-file-label">
+							        Choose your image
+							      </span>
+							    </span>
+							    <span class="file-name" style="background-color:white;color: grey;">
+							      selecione_seu_arquivo...png
+							    </span>
+							  </label>
+							</div><br><br>
+							<div class="field is-horizontal">
+							  <div class="field-label is-normal">
+							    <label class="label">Angle:</label>
+							  </div>
+							  <div class="field-body">
+							    <div class="field">
+								  <div class="control">
+								    <div class="select is-medium">
+								      <select id="s-ro-select">
+								      	<option>Select an option</option>
+								        <option value="45">45</option>
+								        <option value="90">90</option>
+								        <option value="180">180</option>
+								        <option value="-45">-45</option>
+								        <option value="90">-90</option>
+								        <option value="-180">-180</option>
+								      </select>
+								    </div>
+								  </div>
+								</div>
+							  </div>
+							</div><br>
+							<div class="field is-grouped is-grouped-centered center">
+							  <p class="control" id="s-ro-send">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      Send
+							    </a>
+							  </p>
+							  <p class="control" id="s-ro-cancel">
+							    <a class="button" style="background-color:#dcc9ff;">
+							      Cancel
+							    </a>
+							  </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="section-format">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<div class="notification">
+							<figure class="image center">
+								<img src="img/format.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Format your image </h3><br>
+							<div class="file has-name is-boxed center">
+							  <label class="file-label">
+							    <input class="file-input" type="file" name="resume" id="s-f-file">
+							    <span class="file-cta" style="background-color:#b794f6;color:white;">
+							      <span class="file-icon">
+							        <i class="fa fa-upload"></i>
+							      </span>
+							      <span class="file-label" id="s-f-file-label">
+							        Choose your image
+							      </span>
+							    </span>
+							    <span class="file-name" style="background-color:white;color: grey;">
+							      selecione_seu_arquivo...png
+							    </span>
+							  </label>
+							</div><br>
+							<div class="field is-grouped is-grouped-centered center">
+							  <p class="control" id="s-f-pngtojpg">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      PNG to JPG
+							    </a>
+							  </p>
+							  <p class="control" id="s-f-jpgtopng">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      JPG to PNG
+							    </a>
+							  </p>
+							  <p class="control" id="s-f-cancel">
+							    <a class="button" style="background-color:#dcc9ff;">
+							      Cancel
+							    </a>
+							  </p>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="section-fx">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<div class="notification">
+							<figure class="image center">
+								<img src="img/effects.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> FX your image </h3><br>
+							<div class="file has-name is-boxed center">
+							  <label class="file-label">
+							    <input class="file-input" type="file" name="resume" id="s-fx-file">
+							    <span class="file-cta" style="background-color:#b794f6;color:white;">
+							      <span class="file-icon">
+							        <i class="fa fa-upload"></i>
+							      </span>
+							      <span class="file-label" id="s-fx-file-label">
+							        Choose your image
+							      </span>
+							    </span>
+							    <span class="file-name" style="background-color:white;color: grey;">
+							      selecione_seu_arquivo...png
+							    </span>
+							  </label>
+							</div><br>
+							<div class="field is-grouped is-grouped-centered center">
+							  <p class="control" id="s-fx-pb">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      GrayScale
+							    </a>
+							  </p>
+							  <p class="control" id="s-fx-sepia">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      Sepia
+							    </a>
+							  </p>
+							  <p class="control" id="s-fx-cancel">
+							    <a class="button" style="background-color:#dcc9ff;">
+							      Cancel
+							    </a>
+							  </p>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="section-alpha">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<div class="notification">
+							<figure class="image center">
+								<img src="img/alpha.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Alpha your image </h3><br>
+							<div class="file has-name is-boxed center">
+							  <label class="file-label">
+							    <input class="file-input" type="file" name="resume" id="s-a-file">
+							    <span class="file-cta" style="background-color:#b794f6;color:white;">
+							      <span class="file-icon">
+							        <i class="fa fa-upload"></i>
+							      </span>
+							      <span class="file-label" id="s-a-file-label">
+							        Choose your image
+							      </span>
+							    </span>
+							    <span class="file-name" style="background-color:white;color: grey;">
+							      selecione_seu_arquivo...png
+							    </span>
+							  </label>
+							</div><br>
+							<div class="field is-grouped is-grouped-centered center">
+							  <p class="control" id="s-a-add">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      Add Alpha
+							    </a>
+							  </p>
+							  <p class="control" id="s-a-replace">
+							    <a class="button" style="background-color:#9f6ff5;color:whitesmoke">
+							      Replace Alpha
+							    </a>
+							  </p>
+							  <p class="control" id="s-a-cancel">
+							    <a class="button" style="background-color:#dcc9ff;">
+							      Cancel
+							    </a>
+							  </p>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="section-opt">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<div class="notification" id="resize">
+							<figure class="image center">
+								<img src="img/resize.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Resize your image </h3>
+							<p class="center">
+								Choose an image and set the size in pixels you want to resize it.
+							</p>
+						</div>
+					</div>
+					<div class="column">
+						<div class="notification" id="rotate">
+							<figure class="image center">
+								<img src="img/rotate.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Rotate your image </h3>
+							<p class="center">
+								Choose an image and rotate it to the desired position.
+							</p>
+						</div>
+					</div>
+					<div class="column">
+						<div class="notification" id="format">
+							<figure class="image center">
+								<img src="img/format.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Format your image </h3>
+							<p class="center">
+								Choose an image and change your format, a simple convert.
+							</p>
+						</div>
+					</div>
+					<div class="column">
+						<div class="notification" id="fx">
+							<figure class="image center">
+								<img src="img/effects.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Fx your image </h3>
+							<p class="center">
+								Choose an image and apply effects.
+							</p>
+						</div>
+					</div>
+					<div class="column">
+						<div class="notification" id="alpha">
+							<figure class="image center">
+								<img src="img/alpha.svg" style="max-width: 60px;">
+							</figure><br>
+							<h3 class="subtitle center"> Alpha your image </h3>
+							<p class="center">
+								Choose an image and adds or replaces the alpha layer.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script type="text/javascript">
+			$('#resize').on('click', function(){
+				document.getElementById('section-resize').style.display = "flex";
+				document.getElementById('section-opt').style.display = "none";
+			});
+			$('#rotate').on('click', function(){
+				document.getElementById('section-rotate').style.display = "flex";
+				document.getElementById('section-opt').style.display = "none";
+			});
+			$('#format').on('click', function(){
+				document.getElementById('section-format').style.display = "flex";
+				document.getElementById('section-opt').style.display = "none";
+			});
+			$('#fx').on('click', function(){
+				document.getElementById('section-fx').style.display = "flex";
+				document.getElementById('section-opt').style.display = "none";
+			});
+			$('#alpha').on('click', function(){
+				document.getElementById('section-alpha').style.display = "flex";
+				document.getElementById('section-opt').style.display = "none";
+			});
+			$('#s-r-cancel').on('click', function(){
+				document.getElementById('section-resize').style.display = "none";
+				document.getElementById('section-opt').style.display = "flex";
+			});
+			$('#s-ro-cancel').on('click', function(){
+				document.getElementById('section-rotate').style.display = "none";
+				document.getElementById('section-opt').style.display = "flex";
+			});
+			$('#s-f-cancel').on('click', function(){
+				document.getElementById('section-format').style.display = "none";
+				document.getElementById('section-opt').style.display = "flex";
+			});
+			$('#s-fx-cancel').on('click', function(){
+				document.getElementById('section-fx').style.display = "none";
+				document.getElementById('section-opt').style.display = "flex";
+			});
+			$('#s-a-cancel').on('click', function(){
+				document.getElementById('section-alpha').style.display = "none";
+				document.getElementById('section-opt').style.display = "flex";
+			});
+			// var shell = require('child_process').exec;
+			// $('#btn-py').on('click', function(){
+			// 	shell("python -i winauto.py ", function (error, stdout, stderr) {
+			// 	      if (error !== null) {
+			// 	        console.log('exec error: ' + error);
+			// 	      }
+			// 	});
+			// })
+			if (window.module) module = window.module;
+		</script>
+	</body>
+</html>
